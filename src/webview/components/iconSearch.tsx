@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { vscode } from "../vscode";
 import IconGrid from "./IconGrid";
+import IconDetailsModal from "./IconDetailsModal";
 
 export default function IconSearch() {
-    const [query, setQuery] = useState("user");
+    const [query, setQuery] = useState("");
     const [icons, setIcons] = useState<any[]>([]);
     const [loading, setLoading] = useState(false);
     const [totalFound, setTotalFound] = useState(0);
+    const [selectedIcon, setSelectedIcon] = useState<any>(null);
 
     // Debounce the search input
     useEffect(() => {
@@ -56,64 +58,97 @@ export default function IconSearch() {
         setLoading(false);
     };
 
-    const handleCopy = async (item: any) => {
+    const handleCopy = async (item: any, overrideColor: string = "currentColor", action: "copy" | "insert" = "insert") => {
         try {
             const res = await fetch(item.downloadUrl);
             let svgText = await res.text();
 
             // For standard UI icons, make the SVG adapt to the text color of whatever project you paste it into
             if (!item.isBrand) {
-                svgText = svgText.replace(/fill="[^"]*"/g, 'fill="currentColor"');
+                // If the user picked a color, inject it; otherwise use currentColor
+                svgText = svgText.replace(/fill="[^"]*"/g, `fill="${overrideColor}"`);
             }
 
-            // Send the SVG string back to extension.ts to insert it
+            // Send the SVG string back to extension.ts to insert or copy it
             vscode.postMessage({
-                command: "insertCode",
+                command: action === "insert" ? "insertCode" : "copyCode",
                 text: svgText,
             });
+
+            // Close modal after action
+            setSelectedIcon(null);
         } catch (e) {
-            console.error("Failed to fetch SVG");
+            console.error(`Failed to fetch SVG for ${action}`);
         }
     };
 
     return (
-        <div className="flex flex-col min-h-screen p-6 text-(--vscode-editor-foreground) font-sans">
-
+        <div className="flex flex-col min-h-screen p-4 sm:p-6 text-[var(--vscode-editor-foreground)] font-sans">
             {/* Header & Search */}
-            <div className="w-full max-w-3xl mx-auto mb-6 text-center">
-                <h1 className="text-3xl font-bold mb-6 text-(--vscode-textLink-foreground) tracking-wide">
-                    Iconify Explorer
-                </h1>
-
+            <div className="w-full max-w-3xl mx-auto mb-4 text-center sticky top-0 bg-[var(--vscode-sideBar-background)] z-10 pt-2 pb-2">
                 <input
                     type="text"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Search icons (e.g. user, home, react)..."
-                    className="w-full px-5 py-4 text-base rounded-lg outline-none transition-all duration-200 shadow-sm
-                     bg-(--vscode-input-background) 
-                     text-(--vscode-input-foreground) 
-                     border border-(--vscode-input-border) 
-                     focus:border-(--vscode-focusBorder) focus:ring-1 focus:ring-(--vscode-focusBorder)"
+                    className="w-full px-4 py-3 text-sm rounded-lg outline-none transition-all duration-200 shadow-sm
+                     bg-[var(--vscode-input-background)] 
+                     text-[var(--vscode-input-foreground)] 
+                     border border-[var(--vscode-input-border)] 
+                     focus:border-[var(--vscode-focusBorder)] focus:ring-[1px] focus:ring-[var(--vscode-focusBorder)]"
                 />
-
-                {/* Status Text */}
-                <div className="mt-4 text-sm text-(--vscode-descriptionForeground) h-5">
-                    {loading ? (
-                        <span className="animate-pulse">Searching...</span>
-                    ) : icons.length > 0 ? (
-                        <span>Found {totalFound} icons. Showing first {icons.length}.</span>
-                    ) : query ? (
-                        <span>No icons found.</span>
-                    ) : (
-                        <span>Ready to search.</span>
-                    )}
-                </div>
             </div>
 
-            {/* Grid Container */}
-            <IconGrid icons={icons} onCopy={handleCopy} />
+            {query.trim().length === 0 ? (
+                /* Welcome Screen */
+                <div className="flex-1 flex flex-col items-center justify-center text-center px-4 mt-12 animate-in fade-in duration-500">
+                    <div className="w-20 h-20 mb-6 text-[var(--vscode-textLink-foreground)] opacity-80 drop-shadow-md">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                            <polyline points="21 15 16 10 5 21"></polyline>
+                        </svg>
+                    </div>
+                    <h1 className="text-2xl font-bold mb-3 tracking-wide text-[var(--vscode-editor-foreground)]">
+                        Welcome to IconForge
+                    </h1>
+                    <p className="text-sm text-[var(--vscode-descriptionForeground)] max-w-md leading-relaxed">
+                        Discover and insert thousands of premium open-source icons right in your editor.
+                        Type a keyword in the search bar above to begin.
+                    </p>
+                </div>
+            ) : (
+                <div className="w-full max-w-3xl mx-auto flex-1">
+                    {/* Status Text */}
+                    <div className="mb-4 text-xs font-medium text-[var(--vscode-descriptionForeground)] h-5 flex justify-center items-center">
+                        {loading ? (
+                            <span className="flex items-center gap-2 animate-pulse">
+                                <svg className="animate-spin h-3 w-3 text-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                                </svg>
+                                Searching icons...
+                            </span>
+                        ) : icons.length > 0 ? (
+                            <span>Found {totalFound} icons. Showing first {icons.length}.</span>
+                        ) : (
+                            <span>No icons found for "{query}".</span>
+                        )}
+                    </div>
 
+                    {/* Grid Container */}
+                    <IconGrid icons={icons} onCopy={(item) => setSelectedIcon(item)} />
+                </div>
+            )}
+
+            {selectedIcon && (
+                <IconDetailsModal 
+                    icon={selectedIcon} 
+                    onClose={() => setSelectedIcon(null)}
+                    onInsert={(icon, color) => handleCopy(icon, color, "insert")}
+                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")}
+                />
+            )}
         </div>
     );
 }

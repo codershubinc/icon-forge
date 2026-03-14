@@ -142,6 +142,9 @@ export class IconForgeViewProvider implements vscode.WebviewViewProvider {
                     vscode.env.clipboard.writeText(message.text);
                     vscode.window.showInformationMessage("Asset copied to clipboard!");
                 }
+            } else if (message.command === "copyCode") {
+                vscode.env.clipboard.writeText(message.text);
+                vscode.window.showInformationMessage("Asset copied to clipboard!");
             }
         });
     }

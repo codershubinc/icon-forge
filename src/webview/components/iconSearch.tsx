@@ -82,6 +82,18 @@ export default function IconSearch() {
         }
     };
 
+    const handleCopyUri = (item: any) => {
+        try {
+            vscode.postMessage({
+                command: "copyCode",
+                text: item.downloadUrl,
+            });
+            setSelectedIcon(null);
+        } catch (e) {
+            console.error("Failed to copy URI");
+        }
+    };
+
     return (
         <div className="flex flex-col min-h-screen p-4 sm:p-6 text-[var(--vscode-editor-foreground)] font-sans">
             {/* Header & Search */}
@@ -142,12 +154,11 @@ export default function IconSearch() {
             )}
 
             {selectedIcon && (
-                <IconDetailsModal 
-                    icon={selectedIcon} 
+                <IconDetailsModal
+                    icon={selectedIcon}
                     onClose={() => setSelectedIcon(null)}
                     onInsert={(icon, color) => handleCopy(icon, color, "insert")}
-                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")}
-                />
+                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")}                    onCopyUri={handleCopyUri}                />
             )}
         </div>
     );

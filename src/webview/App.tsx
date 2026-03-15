@@ -1,9 +1,13 @@
-import React from "react";
+import { useState } from "react";
+import IconSearch from "./components/iconSearch";
 
 export function App() {
+
+    const [activeTab, setActiveTab] = useState("search");
     return (
-        <div>
-            <h1>Hello World</h1>
+        <div className="">
+            {activeTab === "search" && <IconSearch />}
+
         </div>
     );
 }

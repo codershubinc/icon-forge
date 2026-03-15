@@ -75,12 +75,17 @@ export class HelloWorldPanel {
         const scriptUri = webview.asWebviewUri(
             vscode.Uri.joinPath(this._extensionUri, "dist", "webview.js")
         );
+        const styleUri = webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, "dist", "webview.css")
+        );
         const nonce = getNonce();
 
         const htmlPath = vscode.Uri.joinPath(this._extensionUri, "media", "index.html").fsPath;
         return fs
             .readFileSync(htmlPath, "utf8")
             .replace(/\{\{nonce\}\}/g, nonce)
+            .replace("{{cspSource}}", webview.cspSource)
+            .replace("{{styleUri}}", styleUri.toString())
             .replace("{{scriptUri}}", scriptUri.toString());
     }
 }
@@ -93,4 +98,51 @@ function getNonce() {
         text += possible.charAt(Math.floor(Math.random() * possible.length));
     }
     return text;
+}
+
+export class IconForgeViewProvider implements vscode.WebviewViewProvider {
+    public static readonly viewType = "iconforge.mainView";
+
+    constructor(private readonly _extensionUri: vscode.Uri) { }
+
+    resolveWebviewView(webviewView: vscode.WebviewView) {
+        webviewView.webview.options = {
+            enableScripts: true,
+            localResourceRoots: [
+                vscode.Uri.joinPath(this._extensionUri, "dist"),
+                vscode.Uri.joinPath(this._extensionUri, "media"),
+            ],
+        };
+
+        const scriptUri = webviewView.webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, "dist", "webview.js")
+        );
+        const styleUri = webviewView.webview.asWebviewUri(
+            vscode.Uri.joinPath(this._extensionUri, "dist", "webview.css")
+        );
+        const nonce = getNonce();
+
+        const htmlPath = vscode.Uri.joinPath(this._extensionUri, "media", "index.html").fsPath;
+        webviewView.webview.html = fs
+            .readFileSync(htmlPath, "utf8")
+            .replace(/\{\{nonce\}\}/g, nonce)
+            .replace("{{cspSource}}", webviewView.webview.cspSource)
+            .replace("{{styleUri}}", styleUri.toString())
+            .replace("{{scriptUri}}", scriptUri.toString());
+
+        webviewView.webview.onDidReceiveMessage((message) => {
+            if (message.command === "insertCode") {
+                const editor = vscode.window.activeTextEditor;
+                if (editor) {
+                    editor.edit((editBuilder) => {
+                        editBuilder.insert(editor.selection.active, message.text);
+                    });
+                    vscode.window.showInformationMessage("Asset Inserted!");
+                } else {
+                    vscode.env.clipboard.writeText(message.text);
+                    vscode.window.showInformationMessage("Asset copied to clipboard!");
+                }
+            }
+        });
+    }
 }

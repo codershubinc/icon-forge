@@ -158,7 +158,7 @@ export default function IconSearch() {
                     icon={selectedIcon}
                     onClose={() => setSelectedIcon(null)}
                     onInsert={(icon, color) => handleCopy(icon, color, "insert")}
-                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")}                    onCopyUri={handleCopyUri}                />
+                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")} onCopyUri={handleCopyUri} />
             )}
         </div>
     );

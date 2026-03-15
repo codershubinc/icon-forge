@@ -92,8 +92,8 @@ export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, 
                             className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded font-medium text-xs transition-colors"
                         >
                             <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
-                                <path fillRule="evenodd" clipRule="evenodd" d="M10.68 6.5a2.5 2.5 0 0 0-3.18-.7l-2.06 1.1A2.5 2.5 0 0 0 6.64 11.2l.68-.36-1.04-1.93-.68.36a1.43 1.43 0 0 1-1.35 0 1.43 1.43 0 0 1 .63-2.58l2.06-1.1a1.43 1.43 0 1 1 1.35 2.5l-.68.35 1.04 1.93.68-.36a2.5 2.5 0 0 0 1.35-3.51z"/>
-                                <path fillRule="evenodd" clipRule="evenodd" d="M9.1 8.28l.68-.36a1.43 1.43 0 0 1 1.35 0 1.43 1.43 0 0 1-.63 2.58l-2.06 1.1a1.43 1.43 0 0 1-1.98-1.92l.68-.36-1.04-1.93-.68.36A2.5 2.5 0 0 0 6.68 12l2.06-1.1a2.5 2.5 0 0 0-1.35-4.3l-.68.35 1.04 1.93.68-.36a1.43 1.43 0 0 1 .67.76z"/>
+                                <path fillRule="evenodd" clipRule="evenodd" d="M10.68 6.5a2.5 2.5 0 0 0-3.18-.7l-2.06 1.1A2.5 2.5 0 0 0 6.64 11.2l.68-.36-1.04-1.93-.68.36a1.43 1.43 0 0 1-1.35 0 1.43 1.43 0 0 1 .63-2.58l2.06-1.1a1.43 1.43 0 1 1 1.35 2.5l-.68.35 1.04 1.93.68-.36a2.5 2.5 0 0 0 1.35-3.51z" />
+                                <path fillRule="evenodd" clipRule="evenodd" d="M9.1 8.28l.68-.36a1.43 1.43 0 0 1 1.35 0 1.43 1.43 0 0 1-.63 2.58l-2.06 1.1a1.43 1.43 0 0 1-1.98-1.92l.68-.36-1.04-1.93-.68.36A2.5 2.5 0 0 0 6.68 12l2.06-1.1a2.5 2.5 0 0 0-1.35-4.3l-.68.35 1.04 1.93.68-.36a1.43 1.43 0 0 1 .67.76z" />
                             </svg>
                             Copy URL
                         </button>

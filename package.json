@@ -4,6 +4,7 @@
   "description": "Get all free icons in one place.",
   "version": "0.0.1",
   "license": "MIT",
+  "publisher": "codershubinc",
   "repository": {
     "type": "git",
     "url": "https://github.com/swap/icon-forge.git"

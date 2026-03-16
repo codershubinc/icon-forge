@@ -2,12 +2,17 @@
 
 **IconForge** is a fast, seamless, and powerful Visual Studio Code extension that allows you to easily search, customize, and insert thousands of premium open-source icons directly into your projects without ever leaving your editor.
 
-## Screenshots
+## Working
 
 <div align="center">
-  <img src="media/assests/Screenshot_20260316_015553.png" alt="IconForge Initial View" width="400"/>
-  <img src="media/assests/Screenshot_20260316_015622.png" alt="Search Interface" width="400"/>
-  <img src="media/assests/Screenshot_20260316_015652.png" alt="Search Results" width="400"/>
+  <video src="media/assests/demo.mp4" autoplay muted loop playsinline controls width="900"></video>
+</div>
+
+If the embedded video does not render in your Markdown viewer, open [media/assests/demo.mp4](media/assests/demo.mp4) directly.
+
+## Screenshots
+
+<div align="center"> 
   <img src="media/assests/Screenshot_20260316_015705.png" alt="Icon Details Popup" width="400"/>
   <br>
   <img src="media/assests/Screenshot_20260316_015727.png" alt="Color Picker" width="400"/>
@@ -55,32 +60,22 @@ Initial release of IconForge.
 
 ---
 
-## Icon Packs Supported\*
+## Supported Icon Packs
 
-Lucide
-Material Design (or MDI)
-Phosphor
-Heroicons
-FontAwesome
-Tabler
-Bootstrap Icons
-Remix Ico
-Tech Stacks & Frameworks to mention:_
-React
-Next.js
-Vue
-Svelte
-Tailwind CSS
-TypeScript
-HTML
-CS
-Use-Case Keywords to mention:_
-SVG snippets
-UI development
-Web design
-Frontend assets
-Zero-dependency
-Prototyping
-Developer tool
+- Lucide
+- Material Design Icons
+- Phosphor
+- Heroicons
+- Font Awesome
+- Tabler Icons
+- Bootstrap Icons
+- Remix Icon
 
-Enjoying IconForge?\*\* Don't forget to leave a review and star the project!
+## Search for anything
+
+- React, Next.js, Vue, and Svelte projects
+- Tailwind CSS, TypeScript, HTML, and CSS workflows
+- SVG snippets and UI asset workflows
+- Frontend development, prototyping, and design handoff
+
+Enjoying IconForge? Don't forget to leave a review and star the project.

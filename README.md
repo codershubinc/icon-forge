@@ -9,7 +9,9 @@
   <img src="media/assests/Screenshot_20260316_015622.png" alt="Search Interface" width="400"/>
   <img src="media/assests/Screenshot_20260316_015652.png" alt="Search Results" width="400"/>
   <img src="media/assests/Screenshot_20260316_015705.png" alt="Icon Details Popup" width="400"/>
+  <br>
   <img src="media/assests/Screenshot_20260316_015727.png" alt="Color Picker" width="400"/>
+  <img src="media/assests/Screenshot_20260316_151136.png" alt="Color Picker" width="400"/>
 </div>
 
 ## Features

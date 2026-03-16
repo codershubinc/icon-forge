@@ -51,8 +51,36 @@ Initial release of IconForge.
 
 - Implemented core Iconify API search inside lateral sidebar.
 - Built Detail Popup View featuring Insert, Copy SVG, and Copy URL mechanics.
-- Integrated fully functional responsive Color Picker UI.
+- Integrated fully functional responsive Color Picker UI
 
 ---
 
-**Enjoying IconForge?** Don't forget to leave a review and star the project!
+## Icon Packs Supported\*
+
+Lucide
+Material Design (or MDI)
+Phosphor
+Heroicons
+FontAwesome
+Tabler
+Bootstrap Icons
+Remix Ico
+Tech Stacks & Frameworks to mention:_
+React
+Next.js
+Vue
+Svelte
+Tailwind CSS
+TypeScript
+HTML
+CS
+Use-Case Keywords to mention:_
+SVG snippets
+UI development
+Web design
+Frontend assets
+Zero-dependency
+Prototyping
+Developer tool
+
+Enjoying IconForge?\*\* Don't forget to leave a review and star the project!

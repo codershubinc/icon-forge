@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, onCopyUri }: { icon: any, onClose: () => void, onInsert: (icon: any, color: string) => void, onCopyCode: (icon: any, color: string) => void, onCopyUri: (icon: any) => void }) {
+export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, onCopyUri, onDownload }: { icon: any, onClose: () => void, onInsert: (icon: any, color: string) => void, onCopyCode: (icon: any, color: string) => void, onCopyUri: (icon: any) => void, onDownload: (icon: any, color: string) => void }) {
     const [color, setColor] = useState("#currentColor");
 
     if (!icon) return null;
@@ -67,7 +67,7 @@ export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, 
                         </div>
                     )}
 
-                    <div className="grid grid-cols-3 gap-2 mt-2">
+                    <div className="grid grid-cols-2 gap-2 mt-2 sm:grid-cols-4">
                         <button
                             onClick={() => onInsert(icon, color)}
                             className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-background)] hover:bg-[var(--vscode-button-hoverBackground)] text-[var(--vscode-button-foreground)] rounded font-medium text-xs transition-colors"
@@ -96,6 +96,16 @@ export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, 
                                 <path fillRule="evenodd" clipRule="evenodd" d="M9.1 8.28l.68-.36a1.43 1.43 0 0 1 1.35 0 1.43 1.43 0 0 1-.63 2.58l-2.06 1.1a1.43 1.43 0 0 1-1.98-1.92l.68-.36-1.04-1.93-.68.36A2.5 2.5 0 0 0 6.68 12l2.06-1.1a2.5 2.5 0 0 0-1.35-4.3l-.68.35 1.04 1.93.68-.36a1.43 1.43 0 0 1 .67.76z" />
                             </svg>
                             Copy URL
+                        </button>
+                        <button
+                            onClick={() => onDownload(icon, color)}
+                            className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded font-medium text-xs transition-colors"
+                        >
+                            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                                <path fillRule="evenodd" clipRule="evenodd" d="M8.75 1.5v7.19l2.22-2.22.53.53-3.12 3.12-.38.16-.37-.16L4.5 7l.53-.53 2.22 2.22V1.5h1.5z" />
+                                <path fillRule="evenodd" clipRule="evenodd" d="M2 10.5h1.5V13h9v-2.5H14V13l-1 1H3l-1-1v-2.5z" />
+                            </svg>
+                            Download
                         </button>
                     </div>
 

@@ -94,6 +94,27 @@ export default function IconSearch() {
         }
     };
 
+    const handleDownload = async (item: any, overrideColor: string = "currentColor") => {
+        try {
+            const res = await fetch(item.downloadUrl);
+            let svgText = await res.text();
+
+            if (!item.isBrand) {
+                svgText = svgText.replace(/fill="[^"]*"/g, `fill="${overrideColor}"`);
+            }
+
+            vscode.postMessage({
+                command: "downloadCode",
+                text: svgText,
+                fileName: `${item.name}.svg`,
+            });
+
+            setSelectedIcon(null);
+        } catch (e) {
+            console.error("Failed to download SVG");
+        }
+    };
+
     return (
         <div className="flex flex-col min-h-screen p-4 sm:p-6 text-[var(--vscode-editor-foreground)] font-sans">
             {/* Header & Search */}
@@ -158,7 +179,10 @@ export default function IconSearch() {
                     icon={selectedIcon}
                     onClose={() => setSelectedIcon(null)}
                     onInsert={(icon, color) => handleCopy(icon, color, "insert")}
-                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")} onCopyUri={handleCopyUri} />
+                    onCopyCode={(icon, color) => handleCopy(icon, color, "copy")}
+                    onCopyUri={handleCopyUri}
+                    onDownload={handleDownload}
+                />
             )}
         </div>
     );

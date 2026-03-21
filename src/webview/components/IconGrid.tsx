@@ -21,7 +21,7 @@ export default function IconGrid({ icons, onCopy }: IconGridProps) {
                         onClick={() => onCopy(item)}
                         // Hover tooltip so you still know the icon name
                         title={`${item.name} • ${item.collection}`}
-                        className="group flex items-center justify-center p-0.5 cursor-pointer rounded-md transition-colors hover:bg-[var(--vscode-list-hoverBackground)] aspect-square hover:border hover:border-(--vscode-focusBorder) rounded-lg "
+                        className="group aspect-square cursor-pointer rounded-lg p-0.5 transition-colors hover:border hover:border-[var(--vscode-focusBorder)] hover:bg-[var(--vscode-list-hoverBackground)]"
                     >
                         {/* Larger Icon Image */}
                         <div className="w-10 h-10 flex items-center justify-center transition-transform duration-200 group-hover:scale-110 hover:drop-shadow-md ">

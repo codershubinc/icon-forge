@@ -1,5 +1,5 @@
 import { useState } from "react";
-import IconSearch from "./components/iconSearch";
+import IconSearch from "./components/IconSearch";
 
 export function App() {
 

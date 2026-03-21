@@ -58,6 +58,18 @@
         },
         {
             "type": "npm",
+            "script": "watch:tailwind",
+            "group": "build",
+            "problemMatcher": [],
+            "isBackground": true,
+            "label": "npm: watch:tailwind",
+            "presentation": {
+                "group": "watch",
+                "reveal": "never"
+            }
+        },
+        {
+            "type": "npm",
             "script": "watch-tests",
             "problemMatcher": "$tsc-watch",
             "isBackground": true,

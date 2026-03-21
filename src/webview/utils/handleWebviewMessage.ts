@@ -26,7 +26,11 @@ async function insertAsset(text: string) {
 }
 
 async function downloadAsset(text: string, fileName: string) {
-    const workspaceUri = vscode.workspace.workspaceFolders?.[0]?.uri;
+    const activeEditorUri = vscode.window.activeTextEditor?.document.uri;
+    const activeWorkspaceUri = activeEditorUri
+        ? vscode.workspace.getWorkspaceFolder(activeEditorUri)?.uri
+        : undefined;
+    const workspaceUri = activeWorkspaceUri ?? vscode.workspace.workspaceFolders?.[0]?.uri;
     const defaultUri = workspaceUri
         ? vscode.Uri.joinPath(workspaceUri, fileName)
         : undefined;

@@ -17,7 +17,7 @@ export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, 
                     </div>
                     <button
                         onClick={onClose}
-                        className="p-1.5 rounded-md hover:bg-[var(--vscode-toolbar-hoverBackground)] text-[var(--vscode-icon-foreground)] transition-colors"
+                        className="p-1.5 rounded-md hover:bg-(--vscode-toolbar-hoverBackground) text-(--vscode-icon-foreground) transition-colors"
                     >
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
                             <path fillRule="evenodd" clipRule="evenodd" d="M8 8.707l3.646 3.647.708-.707L8.707 8l3.647-3.646-.707-.708L8 7.293 4.354 3.646l-.708.707L7.293 8l-3.647 3.646.708.707L8 8.707z" />
@@ -26,7 +26,7 @@ export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, 
                 </div>
 
                 {/* Preview Area */}
-                <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[var(--vscode-editor-inactiveSelectionBackground)]">
+                <div className="flex-1 flex flex-col items-center justify-center p-8 bg-[(--vscode-editor-inactiveSelectionBackground)]">
                     <div
                         className="w-24 h-24 sm:w-32 sm:h-32 flex items-center justify-center"
                         style={{ color: color === "#currentColor" ? "inherit" : color }}
@@ -67,45 +67,49 @@ export default function IconDetailsModal({ icon, onClose, onInsert, onCopyCode, 
                         </div>
                     )}
 
-                    <div className="grid grid-cols-2 gap-2 mt-2 sm:grid-cols-4">
+                    <div className="flex mt-2">
                         <button
                             onClick={() => onInsert(icon, color)}
-                            className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-background)] hover:bg-[var(--vscode-button-hoverBackground)] text-[var(--vscode-button-foreground)] rounded font-medium text-xs transition-colors"
+                            title="Insert Code"
+                            aria-label="Insert Code"
+                            className="flex h-10 w-full items-center justify-center bg-[var(--vscode-button-background)] hover:bg-[var(--vscode-button-hoverBackground)] text-[var(--vscode-button-foreground)] rounded transition-colors"
                         >
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M10 14l-.35.15-5-2.5L4 11V5l.65-.65 5-2.5L10 2v3h5v2h-5v3h5v2h-5v2zm-1-1.3l-4-2V5.3l4 2v5.4zM11 6V4.4l3 1.5V6h-3zm0 5V9h3v2h-3z" />
                             </svg>
-                            Insert Code
                         </button>
                         <button
                             onClick={() => onCopyCode(icon, color)}
-                            className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded font-medium text-xs transition-colors"
+                            title="Copy SVG"
+                            aria-label="Copy SVG"
+                            className="flex h-10 w-full items-center justify-center bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded transition-colors"
                         >
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M4 4l1-1h5.414L14 6.586V14l-1 1H5l-1-1V4zm9 3l-3-3H5v10h8V7z" />
                                 <path fillRule="evenodd" clipRule="evenodd" d="M3 1L2 2v10h1V2h6.414l-1-1H3z" />
                             </svg>
-                            Copy SVG
                         </button>
                         <button
                             onClick={() => onCopyUri(icon)}
-                            className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded font-medium text-xs transition-colors"
+                            title="Copy URL"
+                            aria-label="Copy URL"
+                            className="flex h-10 w-full items-center justify-center bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded transition-colors"
                         >
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M10.68 6.5a2.5 2.5 0 0 0-3.18-.7l-2.06 1.1A2.5 2.5 0 0 0 6.64 11.2l.68-.36-1.04-1.93-.68.36a1.43 1.43 0 0 1-1.35 0 1.43 1.43 0 0 1 .63-2.58l2.06-1.1a1.43 1.43 0 1 1 1.35 2.5l-.68.35 1.04 1.93.68-.36a2.5 2.5 0 0 0 1.35-3.51z" />
                                 <path fillRule="evenodd" clipRule="evenodd" d="M9.1 8.28l.68-.36a1.43 1.43 0 0 1 1.35 0 1.43 1.43 0 0 1-.63 2.58l-2.06 1.1a1.43 1.43 0 0 1-1.98-1.92l.68-.36-1.04-1.93-.68.36A2.5 2.5 0 0 0 6.68 12l2.06-1.1a2.5 2.5 0 0 0-1.35-4.3l-.68.35 1.04 1.93.68-.36a1.43 1.43 0 0 1 .67.76z" />
                             </svg>
-                            Copy URL
                         </button>
                         <button
                             onClick={() => onDownload(icon, color)}
-                            className="flex flex-col items-center justify-center gap-1.5 px-2 py-2 bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded font-medium text-xs transition-colors"
+                            title="Download"
+                            aria-label="Download"
+                            className="flex h-10 w-full items-center justify-center bg-[var(--vscode-button-secondaryBackground)] hover:bg-[var(--vscode-button-secondaryHoverBackground)] text-[var(--vscode-button-secondaryForeground)] rounded transition-colors"
                         >
-                            <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor">
+                            <svg width="24" height="24" viewBox="0 0 16 16" fill="currentColor">
                                 <path fillRule="evenodd" clipRule="evenodd" d="M8.75 1.5v7.19l2.22-2.22.53.53-3.12 3.12-.38.16-.37-.16L4.5 7l.53-.53 2.22 2.22V1.5h1.5z" />
                                 <path fillRule="evenodd" clipRule="evenodd" d="M2 10.5h1.5V13h9v-2.5H14V13l-1 1H3l-1-1v-2.5z" />
                             </svg>
-                            Download
                         </button>
                     </div>
 

@@ -18,12 +18,41 @@ export function activate(context: vscode.ExtensionContext) {
 		HelloWorldPanel.render(context.extensionUri);
 	});
 
+	const provider = new IconForgeViewProvider(context.extensionUri);
+	vscode.commands.executeCommand('setContext', 'iconforge.activeTab', 'icons');
 	const viewProvider = vscode.window.registerWebviewViewProvider(
 		IconForgeViewProvider.viewType,
-		new IconForgeViewProvider(context.extensionUri)
+		provider
 	);
 
-	context.subscriptions.push(disposable, viewProvider);
+	const selectTab = async () => {
+		const picked = await vscode.window.showQuickPick(
+			[
+				{ label: 'Icons', description: 'Search and insert icon SVGs', mode: 'icons' as const },
+				{ label: 'Badges', description: 'Browse badge templates', mode: 'badges' as const },
+			],
+			{ placeHolder: 'Select IconForge tab' }
+		);
+
+		if (!picked) {
+			return;
+		}
+
+		provider.postTitleAction('switchMode', picked.mode);
+		vscode.commands.executeCommand('setContext', 'iconforge.activeTab', picked.mode);
+	};
+
+	const activeIconsTitleCommand = vscode.commands.registerCommand('iconforge.activeTab.icons', selectTab);
+	const activeBadgesTitleCommand = vscode.commands.registerCommand('iconforge.activeTab.badges', selectTab);
+	const selectTabFromTitleCommand = vscode.commands.registerCommand('iconforge.selectTabFromTitle', selectTab);
+
+	context.subscriptions.push(
+		disposable,
+		viewProvider,
+		activeIconsTitleCommand,
+		activeBadgesTitleCommand,
+		selectTabFromTitleCommand
+	);
 }
 
 // This method is called when your extension is deactivated

@@ -64,6 +64,40 @@
   "activationEvents": [],
   "main": "./dist/extension.js",
   "contributes": {
+    "commands": [
+      {
+        "command": "iconforge.activeTab.icons",
+        "title": "Icons",
+        "category": "IconForge",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "iconforge.activeTab.badges",
+        "title": "Badges",
+        "category": "IconForge",
+        "icon": "$(list-selection)"
+      },
+      {
+        "command": "iconforge.selectTabFromTitle",
+        "title": "Select Tab",
+        "category": "IconForge",
+        "icon": "$(list-selection)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "iconforge.activeTab.icons",
+          "when": "view == iconforge.mainView && iconforge.activeTab == icons",
+          "group": "navigation@1"
+        },
+        {
+          "command": "iconforge.activeTab.badges",
+          "when": "view == iconforge.mainView && iconforge.activeTab == badges",
+          "group": "navigation@1"
+        }
+      ]
+    },
     "viewsContainers": {
       "activitybar": [
         {

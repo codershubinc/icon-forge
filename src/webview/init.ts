@@ -58,10 +58,23 @@ export class HelloWorldPanel {
 
 export class IconForgeViewProvider implements vscode.WebviewViewProvider {
     public static readonly viewType = "iconforge.mainView";
+    private _view?: vscode.WebviewView;
 
     constructor(private readonly _extensionUri: vscode.Uri) { }
 
+    public postTitleAction(
+        action: "refresh" | "clearSearch" | "focusSearch" | "switchMode",
+        mode?: "icons" | "badges"
+    ) {
+        this._view?.webview.postMessage({
+            command: "titleAction",
+            action,
+            mode,
+        });
+    }
+
     resolveWebviewView(webviewView: vscode.WebviewView) {
+        this._view = webviewView;
         webviewView.webview.options = {
             enableScripts: true,
             localResourceRoots: [
